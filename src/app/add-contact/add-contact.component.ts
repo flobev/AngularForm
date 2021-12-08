@@ -1,5 +1,5 @@
 import { Contact } from '../models/Contact';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,10 @@ import { FormBuilder, Validators, FormArray } from '@angular/forms';
 })
 export class AddContactComponent implements OnInit {
 
+  @Output() newContactEvent = new EventEmitter();
+
+  contact: Contact = new Contact();
+
   profileForm = this.fb.group({
     firstName: ['', Validators.required],
     lastName: [''],
@@ -17,10 +21,7 @@ export class AddContactComponent implements OnInit {
       city: [''],
       state: [''],
       zip: ['']
-    }),
-    aliases: this.fb.array([
-      this.fb.control('')
-    ])
+    })
   });
 
   constructor(private fb: FormBuilder) { }
@@ -30,13 +31,12 @@ export class AddContactComponent implements OnInit {
     console.warn(this.profileForm.value);
   }
 
-  updateProfile() {
-    this.profileForm.patchValue({
-      firstName: 'Nancy',
-      address: {
-        street: '123 Drew Street'
-      }
-    });
+  addContact() {
+
+    this.contact.firstname = "Test";
+    this.newContactEvent.emit({ contact: this.contact });
+
+    this.contact = new Contact();
   }
 
   ngOnInit(): void {

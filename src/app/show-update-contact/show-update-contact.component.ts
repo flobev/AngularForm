@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowUpdateContactComponent implements OnInit {
 
+  selectedTask?: Task;
+
   constructor() { }
 
   updateProfile() {
