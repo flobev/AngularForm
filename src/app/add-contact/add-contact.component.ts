@@ -1,12 +1,13 @@
+import { Contact } from '../models/Contact';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormArray } from '@angular/forms';
 
 @Component({
-  selector: 'app-profile-editor',
-  templateUrl: './profile-editor.component.html',
-  styleUrls: ['./profile-editor.component.scss']
+  selector: 'app-add-contact',
+  templateUrl: './add-contact.component.html',
+  styleUrls: ['./add-contact.component.scss']
 })
-export class ProfileEditorComponent implements OnInit {
+export class AddContactComponent implements OnInit {
 
   profileForm = this.fb.group({
     firstName: ['', Validators.required],
@@ -23,14 +24,6 @@ export class ProfileEditorComponent implements OnInit {
   });
 
   constructor(private fb: FormBuilder) { }
-
-  get aliases() {
-    return this.profileForm.get('aliases') as FormArray;
-  }
-
-  addAlias() {
-    this.aliases.push(this.fb.control(''));
-  }
 
   onSubmit() {
     // TODO: Use EventEmitter with form value
